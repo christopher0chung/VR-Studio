@@ -7,10 +7,24 @@ using UnityEngine.VR;
 
 public class MouseLook : MonoBehaviour {
 
+    public float mouseSpeedScale;
+
 	void Start () {
-		// are we using VR
+        // are we using VR
         if (VRDevice.isPresent)
             Debug.Log("VR is enabled" + VRDevice.model);
+        else
+            transform.position = new Vector3(0, 2, 0);
+
+        // 50% is useable
+        // 10% is drastic
+        VRSettings.renderViewportScale = .1f;
+
+        // when false, there is no preview
+        VRSettings.showDeviceView = true;
+
+        // another special function for performance
+        // VRStats.gpuTimeLastFrame
 	}
 	
 	void Update () {
@@ -21,8 +35,7 @@ public class MouseLook : MonoBehaviour {
             // mouseLook code
             var myCam = Camera.main.transform;
             // rotate camera based on mouse speed
-            myCam.Rotate(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f);
-
+            myCam.Rotate(-Input.GetAxis("Mouse Y") * mouseSpeedScale, Input.GetAxis("Mouse X") * mouseSpeedScale, 0f);
             // unroll camera
             myCam.localEulerAngles = new Vector3(myCam.localEulerAngles.x, myCam.localEulerAngles.y, 0f);
         }
