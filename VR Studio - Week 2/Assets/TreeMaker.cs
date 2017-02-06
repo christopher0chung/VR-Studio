@@ -16,7 +16,7 @@ public class TreeMaker : MonoBehaviour {
         for (int i = 0; i < number; i++)
         {
             GameObject thisTree = (GameObject) Instantiate(treePrefab, new Vector3(Random.Range(-range, range), 0, Random.Range(-range, range)), Quaternion.Euler(0, Random.Range(-180, 180), 0), transform);
-            scale = Random.Range(1.0f, 2.0f);
+            scale = Random.Range(25f, 100f);
             thisTree.transform.localScale = Vector3.one * scale;
         }
 	}
