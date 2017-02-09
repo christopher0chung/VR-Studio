@@ -6,14 +6,19 @@ using UnityEngine.Events;
 
 public class GazeTrigger : MonoBehaviour {
 
-    [SerializeField] float timer;
-    [SerializeField] Image progressImage;
+    [SerializeField] private float gazeTimer;
+    [SerializeField] private float idleTimer;
+    [SerializeField] private Image progressImage;
 
     public UnityEvent OnGazeComplete = new UnityEvent();
+    public UnityEvent OnHeadStop = new UnityEvent();
+
+    private bool isFixed = true;
+    private TextMeshReadout myTMR;
 
 	// Use this for initialization
 	void Start () {
-		
+        myTMR = Camera.main.transform.GetComponentInChildren<TextMeshReadout>();
 	}
 	
 	// Update is called once per frame
@@ -23,24 +28,53 @@ public class GazeTrigger : MonoBehaviour {
 
         float angle = Vector3.Angle(camLookDir, vectorFromCameraToTarget);
 
-        //Can do something based off of angle.
-        if (angle <= 15f)
+        if (isFixed)
         {
-            timer += Time.deltaTime;
+            //Can do something based off of angle.
+            if (angle <= 5f)
+            {
+                gazeTimer += Time.deltaTime / 2;
+            }
+            else
+            {
+                gazeTimer -= Time.deltaTime;
+            }
+
+            gazeTimer = Mathf.Clamp01(gazeTimer);
+            progressImage.fillAmount = gazeTimer;
+
+            if (gazeTimer >= 1)
+            {
+                gazeTimer = 0;
+                idleTimer = -5;
+                OnGazeComplete.Invoke();
+                isFixed = false;
+            }
         }
         else
         {
-            timer -= Time.deltaTime;
-        }
-        timer = Mathf.Clamp01(timer);
+            transform.position = Camera.main.transform.position + Vector3.Normalize(camLookDir) * 100;
+
+            if (Vector3.Magnitude(myTMR.smoothedDeltaAngs) <= .6f)
+            {
+                idleTimer += Time.deltaTime / 2;
+            }
+            else
+            {
+                idleTimer = 0;
+            }
+            
+            idleTimer = Mathf.Clamp01 (idleTimer);
+            progressImage.fillAmount = idleTimer;
 
 
-        progressImage.fillAmount = timer;
-
-        if (timer >= 1)
-        {
-            timer = 0;
-            OnGazeComplete.Invoke();
+            if (idleTimer >= 1)
+            {
+                idleTimer = 0;
+                gazeTimer = 0;
+                OnHeadStop.Invoke();
+                isFixed = true;
+            }
         }
    }
 }

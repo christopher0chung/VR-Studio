@@ -1,17 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SchoolMovement : MonoBehaviour {
 
-    public float speed;
+    private float distance;
+    private Vector3 targetPos;
+    private float speed = .1f;
 
-    [SerializeField]
-    Vector3 dirBase;
-
-    private float timer;
-
-    // Use this for initialization
     void Start () {
 		
 	}
@@ -19,22 +16,18 @@ public class SchoolMovement : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-        timer += Time.fixedDeltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed);
+        distance = Vector3.Distance(transform.position, targetPos);
 
-        if (timer < 10)
+        if (distance <= 1)
         {
-            transform.eulerAngles = Vector3.zero;
-            transform.position += Vector3.Normalize(dirBase) * speed;
+            transform.Rotate(Vector3.up * .5f);
         }
 
-        else if (timer > 20)
-            timer -= 20;
+    }
 
-        else
-        {
-            transform.eulerAngles = Vector3.up * 180;
-            transform.position -= Vector3.Normalize(dirBase) * speed;
-        }
-
+    public void MoveToTarget()
+    {
+        targetPos = GameObject.Find("Target").transform.position;
     }
 }
