@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TextMeshReadout : MonoBehaviour {
 
-    private TextMesh myText;
+    //private TextMesh myText;
 
     private Vector3 lastAngs;
     private Vector3 currentAngs;
@@ -14,7 +14,7 @@ public class TextMeshReadout : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        myText = GetComponent<TextMesh>();
+        //myText = GetComponent<TextMesh>();
         currentAngs = transform.eulerAngles;
 	}
 	
@@ -28,7 +28,7 @@ public class TextMeshReadout : MonoBehaviour {
 
         smoothedDeltaAngs = Vector3.Lerp(smoothedDeltaAngs, deltaAngs, .1f);
 
-        myText.text = "X: " + (int)(smoothedDeltaAngs.x * 60) + "\nY: " + (int)(smoothedDeltaAngs.y * 60) + "\nZ: " + (int)(smoothedDeltaAngs.z * 60);
+        //myText.text = "X: " + (int)(smoothedDeltaAngs.x * 60) + "\nY: " + (int)(smoothedDeltaAngs.y * 60) + "\nZ: " + (int)(smoothedDeltaAngs.z * 60);
 
 	}
 }

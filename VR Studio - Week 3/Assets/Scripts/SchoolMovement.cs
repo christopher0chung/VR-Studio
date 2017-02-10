@@ -14,14 +14,22 @@ public class SchoolMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed);
         distance = Vector3.Distance(transform.position, targetPos);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * 60 * Time.deltaTime);
 
         if (distance <= 1)
         {
-            transform.Rotate(Vector3.up * .5f);
+            transform.Rotate(Vector3.up * .5f * 60 * Time.deltaTime);
+            if (transform.eulerAngles.y > 360)
+            {
+                transform.eulerAngles = new Vector3((transform.eulerAngles.x + 360) % 360, (transform.eulerAngles.y + 360) % 360, (transform.eulerAngles.z + 360) % 360);
+            }
+        }
+        else
+        {
+            transform.Rotate(Vector3.right * .1f * 60 * Time.deltaTime);
         }
 
     }
