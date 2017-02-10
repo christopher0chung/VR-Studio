@@ -27,6 +27,7 @@ public class FishToSchool : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
         lastPos = transform.position;
         transform.position = Vector3.MoveTowards(transform.position, school.position + (school.right * offsetX) + (school.up * offsetY) + (school.forward * offsetZ), fishSpeed);
 

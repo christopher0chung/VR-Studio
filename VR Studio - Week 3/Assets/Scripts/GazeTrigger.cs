@@ -53,7 +53,7 @@ public class GazeTrigger : MonoBehaviour {
         }
         else
         {
-            transform.position = Camera.main.transform.position + Vector3.Normalize(camLookDir) * 100;
+            transform.position = Camera.main.transform.position + Vector3.Normalize(camLookDir) * 80;
 
             if (Vector3.Magnitude(myTMR.smoothedDeltaAngs) <= .6f)
             {

@@ -16,7 +16,7 @@ public class FishSpawn : MonoBehaviour {
 		for (int i = 0; i < number; i++)
         {
             invRange = Random.Range(0.001f, 1.000f);
-            range = (1 - (invRange * invRange * invRange)) * 20;
+            range = (1 - (invRange * invRange * invRange)) * 10;
 
             Vector3 position = Vector3.forward * - 60 + (Quaternion.Euler(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360))) * Vector3.forward) * range;
 
