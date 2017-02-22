@@ -34,8 +34,8 @@ public class SchoolMovement : MonoBehaviour {
 
     }
 
-    public void MoveToTarget()
+    public void MoveToTarget(Vector3 loc)
     {
-        targetPos = GameObject.Find("Target").transform.position;
+        targetPos = loc;
     }
 }
