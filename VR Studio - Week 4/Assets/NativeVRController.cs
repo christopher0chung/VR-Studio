@@ -15,10 +15,10 @@ public class NativeVRController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //leftHand.localPosition = InputTracking.GetLocalPosition(VRNode.LeftHand);
-        //rightHand.localPosition = InputTracking.GetLocalPosition(VRNode.RightHand);
+        leftHand.position = InputTracking.GetLocalPosition(VRNode.LeftHand);
+        rightHand.position = InputTracking.GetLocalPosition(VRNode.RightHand);
 
-        //leftHand.localRotation = InputTracking.GetLocalRotation(VRNode.LeftHand);
-        //rightHand.localRotation = InputTracking.GetLocalRotation(VRNode.RightHand);
+        leftHand.rotation = InputTracking.GetLocalRotation(VRNode.LeftHand);
+        rightHand.rotation = InputTracking.GetLocalRotation(VRNode.RightHand);
     }
 }

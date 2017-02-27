@@ -20,14 +20,18 @@ public class HandRepresentation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (thingToTrack != null)
+        if (thingToTrack != null)
         {
-            transform.position = myHead.transform.position + ((thingToTrack.transform.position - myHead.transform.position) * 70f);
+            transform.position = myHead.transform.position + ((thingToTrack.transform.position - myHead.transform.position) * 150f);
         }
 
         if (gameObject.name == "RHSphere")
         {
-            GameObject.Find("School").GetComponent<SchoolMovement>().MoveToTarget(transform.position);
+            GameObject.Find("SchoolRH").GetComponent<SchoolMovement>().MoveToTarget(transform.position);
         }
-	}
+        else if (gameObject.name == "LHSphere")
+        {
+            GameObject.Find("SchoolLH").GetComponent<SchoolMovement>().MoveToTarget(transform.position);
+        }
+    }
 }

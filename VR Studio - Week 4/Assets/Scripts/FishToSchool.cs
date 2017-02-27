@@ -5,11 +5,16 @@ using UnityEngine.Profiling;
 
 public class FishToSchool : MonoBehaviour {
 
-    private Transform school;
+    private Transform schoolRH;
+    private Transform schoolLH;
 
-    [SerializeField] private float offsetX;
-    [SerializeField] private float offsetY;
-    [SerializeField] private float offsetZ;
+    [SerializeField] private float offsetXRH;
+    [SerializeField] private float offsetYRH;
+    [SerializeField] private float offsetZRH;
+
+    [SerializeField] private float offsetXLH;
+    [SerializeField] private float offsetYLH;
+    [SerializeField] private float offsetZLH;
 
     public float fishSpeed;
 
@@ -21,11 +26,17 @@ public class FishToSchool : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        school = GameObject.Find("School").transform;
+        schoolRH = GameObject.Find("SchoolRH").transform;
 
-        offsetX = transform.position.x - school.position.x;
-        offsetY = transform.position.y - school.position.y;
-        offsetZ = transform.position.z - school.position.z;
+        offsetXRH = transform.position.x - schoolRH.position.x;
+        offsetYRH = transform.position.y - schoolRH.position.y;
+        offsetZRH = transform.position.z - schoolRH.position.z;
+
+        schoolLH = GameObject.Find("SchoolLH").transform;
+
+        offsetXRH = transform.position.x - schoolLH.position.x;
+        offsetYRH = transform.position.y - schoolLH.position.y;
+        offsetZRH = transform.position.z - schoolLH.position.z;
 
         int randSeed = Random.Range(0, 1);
         if (randSeed == 0)
@@ -44,7 +55,7 @@ public class FishToSchool : MonoBehaviour {
         switcher = !switcher;
 
         lastPos = transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, school.position + (school.right * offsetX) + (school.up * offsetY) + (school.forward * offsetZ), fishSpeed * 60 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, schoolRH.position + (schoolRH.right * offsetXRH) + (schoolRH.up * offsetYRH) + (schoolRH.forward * offsetZRH), fishSpeed * 60 * Time.deltaTime);
 
         if (switcher)
         {
@@ -53,8 +64,6 @@ public class FishToSchool : MonoBehaviour {
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir, Vector3.up), .09f);
             }
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir, Vector3.up), .09f);
-
         }
     }
 }
